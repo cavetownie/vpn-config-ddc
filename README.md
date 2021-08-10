@@ -4,10 +4,10 @@ Lavet af Cave, grafik af Phiko
 
 # Setup, step-by-step
 
-chmod +x betterWireguard.sh"
-cd to betterWireguards location"
+```chmod +x betterWireguard.sh```
+```cd to betterWireguards location```
 
-Make sure that both your shellscript and betterWireguard is in the current directory"
+Make sure that both your shellscript and betterWireguard is in the current directory
 
-./betterWireguard"
-Enter the complete filename of config file (eg conn_0.conf)"
+```./betterWireguard```
+Enter the complete filename of config file: (eg ```conn_0.conf```)
