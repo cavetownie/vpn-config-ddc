@@ -8,8 +8,8 @@ Made by Cave, graphics by Phiko
 
 # Setup, step-by-step
 
-```chmod +x betterWireguard.sh```<br>```cd to betterWireguards location```
+```cd to betterWireguards location```<br>```chmod +x betterWireguard.sh```
 
-Make sure that both your shellscript and betterWireguard is in the current directory
+Make sure that both your config file and betterWireguard is in the current directory
 
 ```./betterWireguard```<br>Enter the complete filename of config file: (eg ```conn_0.conf```)
