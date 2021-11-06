@@ -8,7 +8,7 @@ Made by Cave, graphics by Phiko
 
 # Setup, step-by-step
 
-```cd to betterWireguards location```<br>```chmod +x betterWireguard.sh```
+```curl https://raw.githubusercontent.com/cavetownie/VPNConfigurationDDC2021/main/betterWireguard.sh >> betterWireguard.sh```<br>```chmod +x betterWireguard.sh```<br>```./betterWireguard.sh```
 
 Make sure that both your config file and betterWireguard is in the current directory
 
