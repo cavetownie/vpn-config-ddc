@@ -35,7 +35,7 @@ installDependencies(){
 
 		else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager was recognized as dnf, but this system doesn't appear to be neither Rocky Linux nor Fedora. You must manually install the needed packages">&2 && exit 1; fi
 
-	elif [ -x "$(command -v pacman)" ]; then pacman -S --noconfirm wireguard-tools
+	elif [ -x "$(command -v pacman)" ]; then pacman -S --noconfirm wireguard-tools && systemctl start systemd-resolved.service
 	else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager not found. You must manually install the needed packages">&2 && exit 1; fi
 }
 
