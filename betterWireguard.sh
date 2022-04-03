@@ -25,14 +25,24 @@ getConfFile(){
 }
 
 installDependencies(){
-	if [ -x "$(command -v apt-get)" ]; then sudo apt-get update -y && apt-get install -y resolvconf wireguard
-	elif [ -x "$(command -v dnf)" ];     then { sudo dnf install -y --skip-broken epel-release elrepo-release && sudo dnf install -y --skip-broken resolvconf wireguard; }
-	elif [ -x "$(command -v pacman)" ];  then sudo pacman -S --noconfirm wireguard-tools
+	if [ -x "$(command -v apt-get)" ]; then apt-get update -y && apt-get install -y resolvconf wireguard
+	elif [ -x "$(command -v dnf)" ]; then { dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken resolvconf wireguard; }
+	elif [ -x "$(command -v pacman)" ]; then pacman -S --noconfirm wireguard-tools
 	else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager not found. You must manually the needed package">&2 && exit 1; fi
+}
+
+checkPriviledges() {
+	if [[ "$EUID" -ne 0 ]]; then
+		echo "$(tput setaf 1)This installer needs to be run with superuser privileges. Often, this is achieved using sudo to run it."
+		exit 1
+	fi
 }
 
 main(){
 	presentation
+
+	checkPriviledges
+
 	getConfFile
 	if [ ! -f $confFile ];
 	then
@@ -41,12 +51,12 @@ main(){
 	else
 		ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf
 		installDependencies
-		sudo cp $confFile /etc/wireguard
-		if (sudo wg-quick up $CONFSTRIP 2>&1 | grep "tun"); then
-				sudo sh -c "cd /etc/wireguard; sed -i \"/DNS = 1.1.1.1/d\" $confFile"
-				sudo wg-quick up $CONFSTRIP
+		cp $confFile /etc/wireguard
+		if (wg-quick up $CONFSTRIP 2>&1 | grep "tun"); then
+				sh -c "cd /etc/wireguard; sed -i \"/DNS = 1.1.1.1/d\" $confFile"
+				wg-quick up $CONFSTRIP
 		fi
-		sudo wg
+		wg
 	fi
 }
 
