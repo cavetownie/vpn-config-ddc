@@ -24,6 +24,13 @@ getConfFile(){
 	CONFSTRIP="$(basename $confFile .conf)"
 }
 
+installDependencies(){
+	if [ -x "$(command -v apt-get)" ]; then sudo apt-get update -y && apt-get install -y resolvconf wireguard
+	elif [ -x "$(command -v dnf)" ];     then { sudo dnf install -y --skip-broken epel-release elrepo-release && sudo dnf install -y --skip-broken resolvconf wireguard; }
+	elif [ -x "$(command -v pacman)" ];  then sudo pacman -S --noconfirm wireguard-tools
+	else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager not found. You must manually the needed package">&2 && exit 1; fi
+}
+
 main(){
 	presentation
 	getConfFile
@@ -32,9 +39,8 @@ main(){
 		echo "$(tput setaf 2 && tput bold)Go in and download the connection file."
 		echo "$(tput setaf 2 && tput bold)On: $(tput setaf 1) https://vpntest.haaukins.com/info"
 	else
-		sudo apt-get update -y
 		ln -s /usr/bin/resolvectl /usr/local/bin/resolvconf
-		sudo apt-get install -y wireguard && sudo apt-get install -y resolvconf
+		installDependencies
 		sudo cp $confFile /etc/wireguard
 		if (sudo wg-quick up $CONFSTRIP 2>&1 | grep "tun"); then
 				sudo sh -c "cd /etc/wireguard; sed -i \"/DNS = 1.1.1.1/d\" $confFile"
