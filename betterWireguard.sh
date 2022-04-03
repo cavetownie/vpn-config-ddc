@@ -9,18 +9,13 @@ presentation(){
 	echo "$(tput setaf 1 && tput bold) \_____\__, |_.__/ \___|_|  |_|  |_|\___||___/\__\___|_|  |___/_|\_\__,_|_.__/ \___|_|  |_| |_|\___|"
 	echo "$(tput setaf 1 && tput bold)        __/ |  $(tput setaf 7)made by $(tput setaf 6)Cave $(tput setaf 7)<3"$(tput sgr0)
 	echo "$(tput setaf 1 && tput bold)       |___/   $(tput setaf 7)graphics by $(tput setaf 6)Phiko"$(tput sgr0)
-	echo -en "\n\n"
-	echo "$(tput setaf 2 && tput bold)Tutorial(1): chmod +x betterWireguard.sh"
-	echo "$(tput setaf 2 && tput bold)Tutorial(2): cd to betterWireguards location"
-	echo "$(tput setaf 2 && tput bold)Tutorial(3): Make sure that both your shellscript and betterWireguard is in the current directory"
-	echo "$(tput setaf 2 && tput bold)Tutorial(4): ./betterWireguard"
-	echo "$(tput setaf 2 && tput bold)Tutorial(5): Enter the complete filename of config file (fx conn_0.conf)"
+	echo -en "\n"
 	echo -en "$(tput setaf 3 && tput bold)\n\nCave <3 and Phiko - Held og lykke til alle\n"
 }
 
 getConfFile(){
 	echo -en "$(tput setaf 7 && tput bold)\nNote that the config file must be in the same directory as the shellscript\n"
-	read -p "Name of your config file from event page: " confFile
+	read -p "Name of your config file from event page (fx conn_0.conf): " confFile
 	CONFSTRIP="$(basename $confFile .conf)"
 }
 
