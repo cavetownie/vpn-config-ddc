@@ -25,7 +25,14 @@ installDependencies(){
 
 		mkdir -p /etc/wireguard/
 		if [[ -e /etc/fedora-release ]]; then dnf install -y wireguard-tools
-		elif [[ -e /etc/rocky-release ]]; then dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken resolvconf wireguard
+		elif [[ -e /etc/rocky-release ]]; then dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken wireguard
+		elif [[ /etc/almalinux-release || -e /etc/centos-release ]]; then
+			os_version=$(grep -shoE '[0-9]+' /etc/almalinux-release /etc/rocky-release /etc/centos-release | head -1)
+
+			if [[ "$os" -eq 8 ]]; then dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken kmod-wireguard wireguard-tools
+			elif [[ "$os" -eq 7 ]]; then yum install -y epel-release https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm && yum install -y yum-plugin-elrepo && yum install -y kmod-wireguard wireguard-tools
+			else echo "Unfortunately, this script isn't supported on older versions of CentOS 7. Jesus, dude, update your system.">&2 && exit 1; fi
+
 		else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager was recognized as dnf, but this system doesn't appear to be neither Rocky Linux nor Fedora. You must manually install the needed packages">&2 && exit 1; fi
 
 	elif [ -x "$(command -v pacman)" ]; then pacman -S --noconfirm wireguard-tools
