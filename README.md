@@ -10,4 +10,4 @@ Made by Cave, graphics by Phiko
 
 Navigate to the directory with your wireguard config file and execute this command:
 
-```curl https://raw.githubusercontent.com/cavetownie/VPNConfigurationDDC2021/main/betterWireguard.sh | sudo /bin/sh```
+```sudo /bin/bash -c "$(curl https://raw.githubusercontent.com/cavetownie/VPNConfigurationDDC2021/main/betterWireguard.sh 2> /dev/null)"```
