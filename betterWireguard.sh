@@ -23,6 +23,7 @@ installDependencies(){
 	if [ -x "$(command -v apt-get)" ]; then apt-get update -y && apt-get install -y resolvconf wireguard
 	elif [ -x "$(command -v dnf)" ]; then
 
+		mkdir -p /etc/wireguard/
 		if [[ -e /etc/fedora-release ]]; then dnf install -y wireguard-tools
 		elif [[ -e /etc/rocky-release ]]; then dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken resolvconf wireguard
 		else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager was recognized as dnf, but this system doesn't appear to be neither Rocky Linux nor Fedora. You must manually install the needed packages">&2 && exit 1; fi
