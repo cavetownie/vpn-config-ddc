@@ -21,9 +21,14 @@ getConfFile(){
 
 installDependencies(){
 	if [ -x "$(command -v apt-get)" ]; then apt-get update -y && apt-get install -y resolvconf wireguard
-	elif [ -x "$(command -v dnf)" ]; then { dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken resolvconf wireguard; }
+	elif [ -x "$(command -v dnf)" ]; then
+
+		if [[ -e /etc/fedora-release ]]; then dnf install -y wireguard-tools
+		elif [[ -e /etc/rocky-release ]]; then dnf install -y --skip-broken epel-release elrepo-release && dnf install -y --skip-broken resolvconf wireguard
+		else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager was recognized as dnf, but this system doesn't appear to be neither Rocky Linux nor Fedora. You must manually install the needed packages">&2 && exit 1; fi
+
 	elif [ -x "$(command -v pacman)" ]; then pacman -S --noconfirm wireguard-tools
-	else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager not found. You must manually the needed package">&2 && exit 1; fi
+	else echo "FAILED TO INSTALL RELEVANT PACKAGE. Package manager not found. You must manually install the needed packages">&2 && exit 1; fi
 }
 
 checkPriviledges() {
