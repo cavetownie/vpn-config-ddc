@@ -8,8 +8,6 @@ Made by Cave, graphics by Phiko
 
 # Setup, step-by-step
 
-```curl https://raw.githubusercontent.com/cavetownie/VPNConfigurationDDC2021/main/betterWireguard.sh >> betterWireguard.sh```<br>```chmod +x betterWireguard.sh```<br>```./betterWireguard.sh```
+Navigate to the directory with your wireguard config file and execute this command:
 
-Make sure that both your config file and betterWireguard is in the current directory
-
-```./betterWireguard```<br>Enter the complete filename of config file: (eg ```conn_0.conf```)
+```sudo /bin/bash -c "$(curl https://raw.githubusercontent.com/cavetownie/VPNConfigurationDDC2021/main/betterWireguard.sh 2> /dev/null)"```
