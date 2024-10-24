@@ -1,8 +1,8 @@
-# VPNConfigurationDDC2021 // 2022
-[DA] Shellscript til konfigurering af Wireguard til De Danske Cybermesterskaber 2021 og 2022. 
+# VPNConfigurationDDC2021 // 2022 // 2023
+[DA] Shellscript til konfigurering af Wireguard til De Danske Cybermesterskaber 2021, 2022 og 2023. 
 Lavet af Cave, grafik af Phiko
 
-[EN] Shellscript for configuration of Wireguard for the Danish Cyberchampionship 2021 and 2022.
+[EN] Shellscript for configuration of Wireguard for the Danish Cyberchampionship 2021, 2022 og 2023.
 Made by Cave, graphics by Phiko
 
 
